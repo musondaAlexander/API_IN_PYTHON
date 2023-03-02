@@ -2,6 +2,8 @@ from typing import Optional, Union
 from fastapi import Body, FastAPI, Response, status, HTTPException
 from pydantic import BaseModel
 from random import randrange
+import psycopg
+
 
 app = FastAPI()
 # we are going to use a moel now to create some validations for our data
@@ -68,14 +70,20 @@ def deletepost(id:int):
         post = find_post(id)
         if post in list_post:
             list_post.remove(post)
-            return {"message":post}
+            return status.HTTP_204_NO_CONTENT
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
 
 # the following method is the update method
 
-# @app.update("/posts/{id}", status_code= status.HTTP_200_OK)
-# def updatepost(id:int, post:Post):
-#         post = find_post(id)
-#         if post in list_post:
-#             list_post.remove(post)
-#             list_post.append(post)
-#             return {"message":post}       
+@app.put("/posts/{id}", status_code= status.HTTP_200_OK)
+def updatepost(id:int, post:Post):
+        post1 = find_post(id)
+        if post1 in list_post:
+            list_post.remove(post1)
+            updatedpost =  post.dict()
+            updatedpost["id"] = id
+            list_post.append(updatedpost)
+            return {"message":list_post}  
+        else:
+            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail="Post not found")
