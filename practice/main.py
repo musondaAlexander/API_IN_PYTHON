@@ -35,7 +35,7 @@ app = FastAPI()
 # Using a model to create a post
 class Post(BaseModel):
     title: str
-    body: str
+    content: str
     published: Optional[bool]
     
 
@@ -56,12 +56,12 @@ def find_post(id:int):
 
 @app.get("/")
 def read_root():
-    return {"Hello": "Welcome To the Blog API Created By Alxander Musonda"}
+    return {"Hello": "Welcome To the Blog API Created By Alexander Musonda"}
 
 
 @app.get("/posts")
 def read_user_me():
-    cursor.execute("SELECT * FROM posts")
+    cursor.execute("""SELECT * FROM posts""")
     posts = cursor.fetchall()
     return {"posts": posts}
 
@@ -77,11 +77,9 @@ def create_user(user_id: dict =  Body(...)):
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
 def create_post(post: Post):
-    new_post = post.dict()
-    new_post["id"] = randrange(0,100)
-    list_post.append(new_post)
-    print(post)
-    return {"post":post}
+    cursor.execute("""INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING *""", (post.title, post.content, post.published))
+    new_post = cursor.fetchone()
+    return {"post": new_post}
 
 
 # get a single post 
