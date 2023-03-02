@@ -1,13 +1,38 @@
+import time
+import psycopg2  
 from typing import Optional, Union
 from fastapi import Body, FastAPI, Response, status, HTTPException
 from pydantic import BaseModel
 from random import randrange
-import psycopg
+
+from psycopg2.extras import RealDictCursor
 
 
+
+host = "localhost"
+databse = "fastApiDb"
+user = "postgres"
+password = "flames####"
+
+# connect to the database
+while True:
+    try:
+        connect = psycopg2.connect(host=host, database=databse, user=user, password=password, cursor_factory=RealDictCursor)
+        print("Database is connected")
+        cursor = connect.cursor()
+        break
+    except Exception as errro:
+        print("Database is not available. Trying to connect again...")
+        print(errro)
+        time.sleep(5)
+
+   
+
+# create a app instance
 app = FastAPI()
-# we are going to use a moel now to create some validations for our data
 
+
+# Using a model to create a post
 class Post(BaseModel):
     title: str
     body: str
@@ -20,7 +45,9 @@ list_post =[{"title":"flames blog","body":"this is my first post","published":Tr
 
 
 
-#  fucntion to find the post by id
+
+
+#  fucntion to find a post by id
 def find_post(id:int):
     for post in list_post:
         if post["id"] == id:
@@ -29,15 +56,16 @@ def find_post(id:int):
 
 @app.get("/")
 def read_root():
-    return {"Hello": "Welcome to  Alexander's API"}
+    return {"Hello": "Welcome To the Blog API Created By Alxander Musonda"}
 
 
 @app.get("/posts")
 def read_user_me():
-    return {"posts": list_post}
+    cursor.execute("SELECT * FROM posts")
+    posts = cursor.fetchall()
+    return {"posts": posts}
 
-# lets create a posy request
-
+# lets create a post request to add a user to the list of users
 @app.post("/users")
 def create_user(user_id: dict =  Body(...)):
     print(user_id)
