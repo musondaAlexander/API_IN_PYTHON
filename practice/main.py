@@ -79,6 +79,7 @@ def create_user(user_id: dict =  Body(...)):
 def create_post(post: Post):
     cursor.execute("""INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING *""", (post.title, post.content, post.published))
     new_post = cursor.fetchone()
+    connect.commit()
     return {"post": new_post}
 
 
