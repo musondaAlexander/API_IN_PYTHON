@@ -84,33 +84,24 @@ def create_post(post: Post):
 
 
 # get a single post 
-@app.get("/singlepost/{id}")
-def get_single_post(id:int):
-    post = find_post(id)
-    if post:
-        return {"post":post}
+@app.get("/post/{id}")
+def get_post(id:int):
+    cursor.execute("""SELECT * FROM posts WHERE id = %s""", (id,))
+    post = cursor.fetchone()
+    return {"post": post}
     
 
 # the follwing method is the Delete method
 @app.delete("/posts/{id}", status_code= status.HTTP_204_NO_CONTENT)
-def deletepost(id:int):
-        post = find_post(id)
-        if post in list_post:
-            list_post.remove(post)
-            return status.HTTP_204_NO_CONTENT
-        else:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
+def delete_post(id:int):
+    cursor.execute("""DELETE FROM posts WHERE id = %s""", (id,))
+    connect.commit()
+    return {"message": "Post deleted successfully"}
 
 # the following method is the update method
 
 @app.put("/posts/{id}", status_code= status.HTTP_200_OK)
-def updatepost(id:int, post:Post):
-        post1 = find_post(id)
-        if post1 in list_post:
-            list_post.remove(post1)
-            updatedpost =  post.dict()
-            updatedpost["id"] = id
-            list_post.append(updatedpost)
-            return {"message":list_post}  
-        else:
-            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail="Post not found")
+def update_post(id:int, post: Post):
+    cursor.execute("""UPDATE posts SET title = %s, content = %s, published = %s WHERE id = %s""", (post.title, post.content, post.published, id))
+    connect.commit()
+    return {"message": "Post updated successfully"}
