@@ -39,20 +39,20 @@ class Post(BaseModel):
     published: Optional[bool]
     
 
-list_post =[{"title":"flames blog","body":"this is my first post","published":True, "id":1},
-            {"title":"my second post","body":"this is my second post","published":True, "id":2},
-            {"title":"my third post","body":"this is my third post","published":True, "id":3}]
+# The list below is to be used as a database When not ccnnected to a database.
+
+# list_post =[{"title":"flames blog","body":"this is my first post","published":True, "id":1},
+#             {"title":"my second post","body":"this is my second post","published":True, "id":2},
+#             {"title":"my third post","body":"this is my third post","published":True, "id":3}]
 
 
 
-
-
-#  fucntion to find a post by id
-def find_post(id:int):
-    for post in list_post:
-        if post["id"] == id:
-            return post
-    return None
+#  fucntion to find a post by id when using the  list Above
+# def find_post(id:int):
+#     for post in list_post:
+#         if post["id"] == id:
+#             return post
+#     return None
 
 @app.get("/")
 def read_root():
