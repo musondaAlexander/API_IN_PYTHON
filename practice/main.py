@@ -88,20 +88,31 @@ def create_post(post: Post):
 def get_post(id:int):
     cursor.execute("""SELECT * FROM posts WHERE id = %s""", (id,))
     post = cursor.fetchone()
+    
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    
     return {"post": post}
     
 
 # the follwing method is the Delete method
 @app.delete("/posts/{id}", status_code= status.HTTP_204_NO_CONTENT)
 def delete_post(id:int):
-    cursor.execute("""DELETE FROM posts WHERE id = %s""", (id,))
+    deleted_post = cursor.execute("""DELETE FROM posts WHERE id = %s""", (id,))
     connect.commit()
-    return {"message": "Post deleted successfully"}
+    
+    if deleted_post == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
+    return {"message": deleted_post}
 
 # the following method is the update method
 
 @app.put("/posts/{id}", status_code= status.HTTP_200_OK)
 def update_post(id:int, post: Post):
-    cursor.execute("""UPDATE posts SET title = %s, content = %s, published = %s WHERE id = %s""", (post.title, post.content, post.published, id))
+    cursor.execute("""UPDATE posts SET title = %s, content = %s, published = %s WHERE id = %s RETURNING *""", (post.title, post.content, post.published, id))
     connect.commit()
-    return {"message": "Post updated successfully"}
+    updated_post =  cursor.fetchone()
+    
+    if updated_post == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
+    return {"message":  updated_post }
