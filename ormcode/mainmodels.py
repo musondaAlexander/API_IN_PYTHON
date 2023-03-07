@@ -1,5 +1,4 @@
-from .database import engine, Sessionlocal
-from . import model
+from database import  engine,Sessionlocal
 import time
 import psycopg2  
 from typing import Optional, Union
@@ -8,8 +7,9 @@ from pydantic import BaseModel
 from random import randrange
 from sqlalchemy.orm import Session
 from psycopg2.extras import RealDictCursor
+from mymodels import  models, models
 
-model.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)
 
 # creatin a app instance
 app = FastAPI()
@@ -26,5 +26,6 @@ def get_db():
 # Using a model to create a post
 @app.get("/posts")
 def get_posts(db: Session = Depends(get_db)):
-     posts = db.query(model.Post).all()
+     posts = db.query(models.Post).all()
      return posts
+

@@ -1,13 +1,13 @@
-from sqlalchemy import Boolean, Column, Integer, String
-from .database import Base
+from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, DateTime
+from database import Base
 
 # creayting a model for the database
 
 class Post(Base):
     __tablename__ = "userposts"
-    id = Column(Integer, primary_key=True, nullubale=False)
-    title = Column(String,nullubale=False)
-    content = Column(String,nullubale=False )
+    id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+    content = Column(String, nullable=False)
     published = Column(Boolean, default=True)
     
     def __repr__(self):
