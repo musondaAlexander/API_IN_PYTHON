@@ -21,6 +21,9 @@ This project is baout a simple social media web Api for:
    # Path: API_IN_PYTHON\ormcode contains the following:
    code that is written using ORM and python to practice the basic crud functionalities.
 
-   i did this in oder to understand the difference between the two. and also 
+   I did this in oder to understand the difference between the two, also want 
    to keep the code for future reference.
+   
+
+
 
