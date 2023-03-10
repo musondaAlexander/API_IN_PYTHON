@@ -1,4 +1,5 @@
-from database import  engine,Sessionlocal
+from database import get_db
+from database import  engine
 import time
 import psycopg2  
 from typing import Optional, Union
@@ -16,13 +17,6 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 
-# create a depe
-def get_db():
-    db = Sessionlocal()
-    try:
-        yield db
-    finally:
-        db.close()
         
 # Using a model to create a post
 @app.get("/posts")

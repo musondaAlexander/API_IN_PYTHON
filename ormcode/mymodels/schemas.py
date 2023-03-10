@@ -1,5 +1,5 @@
 
-from pycodestyle import BaseModel
+from pydantic import BaseModel
 from pyparsing import Optional
 
 
@@ -7,5 +7,5 @@ from pyparsing import Optional
 class Post(BaseModel):
     title: str
     content: str
-    published: Optional[bool]
+    published: bool
     
