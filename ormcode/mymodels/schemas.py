@@ -10,7 +10,6 @@ class Post(BaseModel):
     published: bool
     
 # This will handle both create and update
-
 class CreatePost(Post):
     pass
     

@@ -51,7 +51,7 @@ def update_post(id: int, post: CreatePost, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with the id {id} is not available")
     db_post.update(post.dict(), synchronize_session=False)
     db.commit()
-    return {"data": db_post.first(), "message": "updated successfully"}
+    return db_post.first()
 
 # delete a post
 @app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
