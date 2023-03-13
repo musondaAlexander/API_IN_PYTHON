@@ -49,7 +49,7 @@ def update_post(id: int, post: Post, db: Session = Depends(get_db)):
     db_post = db.query(models.Post).filter(models.Post.id == id)
     if not db_post.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with the id {id} is not available")
-    db_post.update(post)
+    db_post.update(post.dict(), synchronize_session=False)
     db.commit()
     return "updated successfully"
  
