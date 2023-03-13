@@ -9,3 +9,8 @@ class Post(BaseModel):
     content: str
     published: bool
     
+# This will handle both create and update
+
+class CreatePost(Post):
+    pass
+    

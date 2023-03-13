@@ -9,7 +9,7 @@ from random import randrange
 from sqlalchemy.orm import Session
 from psycopg2.extras import RealDictCursor
 from mymodels import  models, models
-from mymodels.schemas import Post
+from mymodels.schemas import Post, CreatePost
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -26,7 +26,7 @@ def get_posts(db: Session = Depends(get_db)):
 
 # Using a model to create a post
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
-def create_post(post: Post, db: Session = Depends(get_db)):
+def create_post(post: CreatePost, db: Session = Depends(get_db)):
 #   new_post = models.Post(title=post.title, content=post.content, published=post.published)
     new_post = models.Post(**post.dict())
     db.add(new_post)
@@ -45,15 +45,14 @@ def show(id: int, response: Response, db: Session = Depends(get_db)):
 
 # update a post using a model
 @app.put("/posts/{id}" , status_code=status.HTTP_202_ACCEPTED)
-def update_post(id: int, post: Post, db: Session = Depends(get_db)):
+def update_post(id: int, post: CreatePost, db: Session = Depends(get_db)):
     db_post = db.query(models.Post).filter(models.Post.id == id)
     if not db_post.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with the id {id} is not available")
     db_post.update(post.dict(), synchronize_session=False)
     db.commit()
-    return "updated successfully"
- 
- 
+    return {"data": db_post.first(), "message": "updated successfully"}
+
 # delete a post
 @app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def destroy(id: int, db: Session = Depends(get_db)):
@@ -63,4 +62,5 @@ def destroy(id: int, db: Session = Depends(get_db)):
     post.delete(synchronize_session=False)
     db.commit()
     return "deleted successfully"
+
 
