@@ -18,21 +18,49 @@ app = FastAPI()
 
 
         
-# Using a model to create a post
+# Using a model to get post all the posts
 @app.get("/posts")
 def get_posts(db: Session = Depends(get_db)):
      posts = db.query(models.Post).all()
      return posts
+
+# Using a model to create a post
+@app.post("/posts", status_code=status.HTTP_201_CREATED)
+def create_post(post: Post, db: Session = Depends(get_db)):
+#   new_post = models.Post(title=post.title, content=post.content, published=post.published)
+    new_post = models.Post(**post.dict())
+    db.add(new_post)
+    db.commit()
+    db.refresh(new_post)
+    return new_post
+
+
+# get single post 
+@app.get("/posts/{id}", status_code=200)
+def show(id: int, response: Response, db: Session = Depends(get_db)):
+    post = db.query(models.Post).filter(models.Post.id == id).first()
+    if not post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with the id {id} is not available")
+    return post
+
+# update a post using a model
+@app.put("/posts/{id}" , status_code=status.HTTP_202_ACCEPTED)
+def update_post(id: int, post: Post, db: Session = Depends(get_db)):
+    db_post = db.query(models.Post).filter(models.Post.id == id)
+    if not db_post.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with the id {id} is not available")
+    db_post.update(post)
+    db.commit()
+    return "updated successfully"
  
  
-
-# # method to add a single post to the database
-# @app.post("/posts", status_code=status.HTTP_201_CREATED)
-# def create_post(post: Post, db: Session = Depends(get_db)):
-#     new_post = models.Post(title=post.title, content=post.content, published=post.published)
-#     db.add(new_post)
-#     db.commit()
-#     db.refresh(new_post)
-#     return new_post
-
+# delete a post
+@app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def destroy(id: int, db: Session = Depends(get_db)):
+    post = db.query(models.Post).filter(models.Post.id == id)
+    if not post.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with the id {id} is not available")
+    post.delete(synchronize_session=False)
+    db.commit()
+    return "deleted successfully"
 
