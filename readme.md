@@ -1,13 +1,13 @@
-This project is baout a simple social media web Api for:
+This project is about a simple social media web Api for:
 
 1. Adding a post to the databse
-2. Retrieving post from The databases or messages
+2. Retrieving a post from The databases or messages
 3. Updating a post
 4. Deleting a post from the database.
-   It supports the basic crud functionalities
-   whicch are performed using the HTTP methods.
-   it is written in Python using simple API. The database am using for this API is postgress. The version of python is 3.10, testing of the API is through a web browser as Simple API provides Documentation for your API and also Postman desktopn.
-   I am yet to publish the url once the project is fully complete which can used.
+   It supports the basic CRUD Operations
+   which are performed using HTTP methods.
+   it is written in Python using simple API. The database am using for this API is postgress. The version of python is 3.10,      testing of the API is through a web browser as Simple API provides Documentation for your API and also Postman desktop.
+   I am yet to publish the url once the project is fully complete which can used By anyone that finds it useful.
 
    ===============================================================================
    # Path: API_IN_PYTHON\requirements.txt contains the following:
