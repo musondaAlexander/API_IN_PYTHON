@@ -9,7 +9,7 @@ from random import randrange
 from sqlalchemy.orm import Session
 from psycopg2.extras import RealDictCursor
 from mymodels import  models, models
-from mymodels.schemas import Post, CreatePost, PostResponse
+from mymodels.schemas import Post, CreatePost, PostResponse, CreateUser
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -62,5 +62,18 @@ def destroy(id: int, db: Session = Depends(get_db)):
     post.delete(synchronize_session=False)
     db.commit()
     return "deleted successfully"
+# ===================================================================================
+# code for the user model
+@app.post("/users", status_code=status.HTTP_201_CREATED)
+def create_user(user: CreateUser, db: Session = Depends(get_db)):
+    new_User = models.User(**user.dict())
+    db.add(new_User)
+    db.commit()
+    db.refresh(new_User)
+    
+    return new_User
+    
+
+
 
 
