@@ -33,3 +33,14 @@ class PostResponse(Post):
 class CreateUser(BaseModel):
     email: EmailStr
     password: str
+    
+# ====================================================================================================
+# class for a response for users
+class UserResponse(BaseModel):
+    id: int
+    email: EmailStr
+    created_at: datetime
+
+    class Config:  # This will allow us to create a response model
+        orm_mode = True
+
