@@ -20,9 +20,17 @@ This project is about a simple social media web Api for:
    ===============================================================================
    # Path: API_IN_PYTHON\ormcode contains the following:
    code that is written using ORM and python to practice the basic crud functionalities.
-
-   I did this in oder to understand the difference between the two, also want 
-   to keep the code for future reference.
+   ===============================================================================
+   # Path: API_IN_PYTHON\api contains the following:
+   code that is written using Simple API and python to practice the basic crud functionalities.
+   ===============================================================================
+   # Path: API_IN_PYTHON\mymodels\utils.py contains the following:
+   contains te function that is used for Hashing the password.
+   ===============================================================================
+   # Path: API_IN_PYTHON\mymodels\user.py contains the following:
+   contains the user model that is used for creating the user table in the database.
+   ===============================================================================
+   
    
 
 
