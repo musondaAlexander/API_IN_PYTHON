@@ -21,17 +21,46 @@ This project is about a simple social media web Api for:
    # Path: API_IN_PYTHON\ormcode contains the following:
    code that is written using ORM and python to practice the basic crud functionalities.
    ===============================================================================
-   # Path: API_IN_PYTHON\api contains the following:
-   code that is written using Simple API and python to practice the basic crud functionalities.
-   ===============================================================================
    # Path: API_IN_PYTHON\mymodels\utils.py contains the following:
    contains te function that is used for Hashing the password.
    ===============================================================================
    # Path: API_IN_PYTHON\mymodels\user.py contains the following:
    contains the user model that is used for creating the user table in the database.
    ===============================================================================
-   
-   
+   # To run the code in the api folder: API_IN_PYTHON\ormcode\
+   1. Open the terminal
+   2. cd to the folder
+   3. run the command: uvicorn mainmodels:app --reload
+
+   ===============================================================================
+   # To run the code in the api folder: API_IN_PYTHON\practice\
+   1. Open the terminal
+   2. cd to the folder
+   3. run the command: uvicorn main:app --reload
+   ================================================================================
+   Make sure you have the following installed:
+   1. Python
+   2. Postgress
+   3. Postman
+   4. Uvicorn
+   5. Fastapi
+   6. SQLAlchemy
+   7. Pydantic
+   8. bcrypt
+   9. passlib
+   10. psycopg2
+   11. python-dotenv
+   12. python-multipart
+   13. requests
+   14. uvicorn
+   15. jinja2
+   16. starlette 
+   17. or
+   you can install all the above using the command: pip install -r requirements.txt
+   this will install all the above packages and many more.
+   ================================================================================
+
+
 
 
 
