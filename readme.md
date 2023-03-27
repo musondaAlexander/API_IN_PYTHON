@@ -1,4 +1,5 @@
 This project is about a simple social media web Api for:
+Note : I am developing this API for Educational purposes only Feel free to clone this repo  and made modifications that suits your business Need.
 
 1. Adding a post to the databse
 2. Retrieving a post from The databases or messages
