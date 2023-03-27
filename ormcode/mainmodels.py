@@ -1,5 +1,6 @@
 # ====================================================================================================
 # All the imports needed for the App
+
 from database import get_db
 from database import engine
 import time
@@ -13,7 +14,7 @@ from psycopg2.extras import RealDictCursor
 from mymodels import models, models
 import utils
 from mymodels.schemas import Post, CreatePost, PostResponse, CreateUser, UserResponse
-from routers import post, user
+from routers import post, user, auth
 
 # ====================================================================================================
 
@@ -24,3 +25,4 @@ app = FastAPI()
 
 app.include_router(post.router)
 app.include_router(user.router)
+app.include_router(auth.router)

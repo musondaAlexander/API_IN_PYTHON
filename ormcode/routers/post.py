@@ -6,17 +6,20 @@ from database import get_db
 from typing import List
 
 # code to create a router object
-router = APIRouter()
+router = APIRouter(
+    prefix="/posts", # this is used to prefix the path operations.
+    tags=["Posts"],# this is used to group the path operations.
+)
 
 #==================================================================================================== 
 # Using a model to get post all the posts
-@router.get("/posts", status_code=200, response_model=List[PostResponse])
+@router.get("/", status_code=200, response_model=List[PostResponse])
 def get_posts(db: Session = Depends(get_db)):
      posts = db.query(models.Post).all()
      return posts
 # ===================================================================================
 # Using a model to create a post
-@router.post("/posts", status_code=status.HTTP_201_CREATED, response_model=PostResponse)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=PostResponse)
 def create_post(post: CreatePost, db: Session = Depends(get_db)):
 #   new_post = models.Post(title=post.title, content=post.content, published=post.published)
     new_post = models.Post(**post.dict())
@@ -27,7 +30,7 @@ def create_post(post: CreatePost, db: Session = Depends(get_db)):
 
 # ===================================================================================
 # get single post 
-@router.get("/posts/{id}", status_code=200 , response_model=PostResponse)
+@router.get("/{id}", status_code=200 , response_model=PostResponse)
 def show(id: int, response: Response, db: Session = Depends(get_db)):
     post = db.query(models.Post).filter(models.Post.id == id).first()
     if not post:
@@ -35,7 +38,7 @@ def show(id: int, response: Response, db: Session = Depends(get_db)):
     return post
 # ===================================================================================
 # update a post using a model
-@router.put("/posts/{id}" , status_code=status.HTTP_202_ACCEPTED, response_model=PostResponse)
+@router.put("/{id}" , status_code=status.HTTP_202_ACCEPTED, response_model=PostResponse)
 def update_post(id: int, post: CreatePost, db: Session = Depends(get_db)):
     db_post = db.query(models.Post).filter(models.Post.id == id)
     if not db_post.first():
@@ -45,7 +48,7 @@ def update_post(id: int, post: CreatePost, db: Session = Depends(get_db)):
     return db_post.first()
 # ===================================================================================
 # delete a post
-@router.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def destroy(id: int, db: Session = Depends(get_db)):
     post = db.query(models.Post).filter(models.Post.id == id)
     if not post.first():

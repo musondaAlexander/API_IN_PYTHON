@@ -44,3 +44,6 @@ class UserResponse(BaseModel):
     class Config:  # This will allow us to create a response model
         orm_mode = True
 
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str

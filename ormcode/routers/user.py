@@ -6,11 +6,14 @@ from database import get_db
 import utils
 
 # code to create a router object
-router = APIRouter()
+router = APIRouter(
+    prefix="/users", # this is used to prefix the path operations
+    tags=["Users"],# this is used to group the path operations
+)
 
 # ===================================================================================
 # code for the user model
-@router.post("/users", status_code=status.HTTP_201_CREATED, response_model=UserResponse)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=UserResponse)
 def create_user(user: CreateUser, db: Session = Depends(get_db)):
     # hash the password before storing it in the database
     hashed_password = utils.hashing_password(user.password)
@@ -23,7 +26,7 @@ def create_user(user: CreateUser, db: Session = Depends(get_db)):
     return new_User
 # ===================================================================================
 # path operation for getting one user
-@router.get("/users/{id}", status_code=200 , response_model=UserResponse)
+@router.get("/{id}", status_code=200 , response_model=UserResponse)
 def get_user(id: int, response: Response, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.id == id).first()
     if not user:
