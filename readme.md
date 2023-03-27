@@ -28,6 +28,14 @@ Note : I am developing this API for Educational purposes only Feel free to clone
    # Path: API_IN_PYTHON\mymodels\user.py contains the following:
    contains the user model that is used for creating the user table in the database.
    ===============================================================================
+   # Path: API_IN_PYTHON\ormcode\routers\post.py contains the following:
+   conatins the code that is used for making post and get request to the database.
+   about the post that the user has made.
+   ===============================================================================
+   # Path: API_IN_PYTHON\ormcode\routers\user.py contains the following:
+   conatins the code that is used for making post and get request to the database.
+   to retrieve the user details.
+   ===============================================================================
    # To run the code in the api folder: API_IN_PYTHON\ormcode\
    1. Open the terminal
    2. cd to the folder
