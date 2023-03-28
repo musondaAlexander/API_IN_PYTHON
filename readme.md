@@ -32,6 +32,10 @@ Note : I am developing this API for Educational purposes only Feel free to clone
    conatins the code that is used for making post and get request to the database.
    about the post that the user has made.
    ===============================================================================
+   # Path: API_IN_PYTHON\ormcode\routers\mainmodels.py contains the following:
+   contains the code that is used to call the two routers that is post and user.
+   this is the main file that is used to run the code.
+   ===============================================================================
    # Path: API_IN_PYTHON\ormcode\routers\user.py contains the following:
    conatins the code that is used for making post and get request to the database.
    to retrieve the user details.
