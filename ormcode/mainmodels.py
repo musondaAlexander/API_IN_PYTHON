@@ -3,8 +3,6 @@
 
 from database import get_db
 from database import engine
-import time
-import psycopg2
 from typing import Optional, Union, List
 from fastapi import Body, FastAPI, Response, status, HTTPException, Depends
 from pydantic import BaseModel
@@ -12,7 +10,6 @@ from random import randrange
 from sqlalchemy.orm import Session
 from psycopg2.extras import RealDictCursor
 from mymodels import models, models
-import utils
 from mymodels.schemas import Post, CreatePost, PostResponse, CreateUser, UserResponse
 from routers import post, user, auth
 
