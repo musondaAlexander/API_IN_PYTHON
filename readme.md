@@ -32,6 +32,9 @@ Note : I am developing this API for Educational purposes only Feel free to clone
    conatins the code that is used for making post and get request to the database.
    about the post that the user has made.
    ===============================================================================
+   # Path: API_IN_PYTHON\ormcode\auth2.py contains the following:
+   contains the code that is used for gerating a token for the user.
+   ===============================================================================
    # Path: API_IN_PYTHON\ormcode\routers\mainmodels.py contains the following:
    contains the code that is used to call the two routers that is post and user.
    this is the main file that is used to run the code.

@@ -5,14 +5,17 @@ from mymodels.schemas import UserLogin
 from mymodels import models
 import utils
 import auth2
+from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 
 router = APIRouter(
     tags=["Authentications"]
     )
 
 @router.post("/login")
-def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.email == user_credentials.email).first()
+def login(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    # The OAuth2PasswordRequestForm is a class that inherits from the Pydantic BaseModel class
+    # It has two fields: username and password
+    user = db.query(models.User).filter(models.User.email == user_credentials.username).first()
     
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Invalid credentials")
