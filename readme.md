@@ -5,6 +5,8 @@ Note : I am developing this API for Educational purposes only Feel free to clone
 2. Retrieving a post from The databases or messages
 3. Updating a post
 4. Deleting a post from the database.
+5. Rate a Post 
+6. Add a user HWo can log in and generate a Token to use for accessing the API.
    It supports the basic CRUD Operations
    which are performed using HTTP methods.
    it is written in Python using simple API. The database am using for this API is postgress. The version of python is 3.10,      testing of the API is through a web browser as Simple API provides Documentation for your API and also Postman desktop.
