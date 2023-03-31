@@ -4,6 +4,8 @@ from mymodels import models
 from mymodels.schemas import Post, CreatePost, PostResponse
 from database import get_db
 from typing import List
+import auth2
+
 
 # code to create a router object
 router = APIRouter(
@@ -20,7 +22,7 @@ def get_posts(db: Session = Depends(get_db)):
 # ===================================================================================
 # Using a model to create a post
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=PostResponse)
-def create_post(post: CreatePost, db: Session = Depends(get_db)):
+def create_post(post: CreatePost, db: Session = Depends(get_db), user_id: int = Depends(auth2.get_current_user)):
 #   new_post = models.Post(title=post.title, content=post.content, published=post.published)
     new_post = models.Post(**post.dict())
     db.add(new_post)
