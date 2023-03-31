@@ -47,3 +47,13 @@ class UserResponse(BaseModel):
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+# ====================================================================================================  
+#Class for Token .  
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+#CLASS FOR TOKEN DATA    
+class TokenData(BaseModel):
+    id : Optional[int] = None    
+
+# ====================================================================================================
