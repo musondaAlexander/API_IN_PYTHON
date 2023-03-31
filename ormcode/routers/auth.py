@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 from database import get_db
-from mymodels.schemas import UserLogin
+from mymodels.schemas import UserLogin, Token
 from mymodels import models
 import utils
 import auth2
@@ -11,7 +11,7 @@ router = APIRouter(
     tags=["Authentications"]
     )
 
-@router.post("/login")
+@router.post("/login", response_model=Token)
 def login(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     # The OAuth2PasswordRequestForm is a class that inherits from the Pydantic BaseModel class
     # It has two fields: username and password

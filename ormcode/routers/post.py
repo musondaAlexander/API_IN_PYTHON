@@ -16,7 +16,7 @@ router = APIRouter(
 #==================================================================================================== 
 # Using a model to get post all the posts
 @router.get("/", status_code=200, response_model=List[PostResponse])
-def get_posts(db: Session = Depends(get_db)):
+def get_posts(db: Session = Depends(get_db), user_id: int = Depends(auth2.get_current_user)):
      posts = db.query(models.Post).all()
      return posts
 # ===================================================================================
@@ -33,7 +33,7 @@ def create_post(post: CreatePost, db: Session = Depends(get_db), user_id: int = 
 # ===================================================================================
 # get single post 
 @router.get("/{id}", status_code=200 , response_model=PostResponse)
-def show(id: int, response: Response, db: Session = Depends(get_db)):
+def show(id: int, response: Response, db: Session = Depends(get_db), user_id: int = Depends(auth2.get_current_user)):
     post = db.query(models.Post).filter(models.Post.id == id).first()
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with the id {id} is not available")
@@ -41,7 +41,7 @@ def show(id: int, response: Response, db: Session = Depends(get_db)):
 # ===================================================================================
 # update a post using a model
 @router.put("/{id}" , status_code=status.HTTP_202_ACCEPTED, response_model=PostResponse)
-def update_post(id: int, post: CreatePost, db: Session = Depends(get_db)):
+def update_post(id: int, post: CreatePost, db: Session = Depends(get_db), user_id: int = Depends(auth2.get_current_user)):
     db_post = db.query(models.Post).filter(models.Post.id == id)
     if not db_post.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with the id {id} is not available")
@@ -51,7 +51,7 @@ def update_post(id: int, post: CreatePost, db: Session = Depends(get_db)):
 # ===================================================================================
 # delete a post
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def destroy(id: int, db: Session = Depends(get_db)):
+def destroy(id: int, db: Session = Depends(get_db), user_id: int = Depends(auth2.get_current_user)):
     post = db.query(models.Post).filter(models.Post.id == id)
     if not post.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with the id {id} is not available")
