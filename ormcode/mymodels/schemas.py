@@ -2,6 +2,7 @@
 from pydantic import BaseModel, EmailStr
 from pyparsing import Optional
 from datetime import datetime
+from typing import Optional
 
 # ====================================================================================================
 # Using a model to create a post
@@ -54,6 +55,6 @@ class Token(BaseModel):
     token_type: str
 #CLASS FOR TOKEN DATA    
 class TokenData(BaseModel):
-    id : Optional[int] = None    
+    id : Optional[int] = None
 
 # ====================================================================================================
