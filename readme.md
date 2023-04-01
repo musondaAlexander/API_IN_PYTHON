@@ -77,6 +77,7 @@ Note : I am developing this API for Educational purposes only Feel free to clone
    you can install all the above using the command: pip install -r requirements.txt
    this will install all the above packages and many more.
    ================================================================================
+   Added all the code for the token 
 
 
 
