@@ -12,6 +12,8 @@ class Post(Base):
     published = Column(Boolean, server_default="True")
     created_at = Column(TIMESTAMP(timezone=True),
                         nullable=False,  server_default=text('now()'))
+    owner_id = Column(Integer, ForeignKey(
+        "users.id", ondelete="CASCADE"), nullable=False)
 
     def __repr__(self):
         return f"Post(title={self.title}, content={self.content}, published={self.published})"
@@ -26,4 +28,3 @@ class User(Base):
     password = Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True),
                         nullable=False,  server_default=text('now()'))
-
