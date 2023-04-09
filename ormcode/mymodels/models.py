@@ -1,5 +1,6 @@
-from sqlalchemy import TIMESTAMP, Boolean, Column, Integer, String, ForeignKey, DateTime, text
+from sqlalchemy import TIMESTAMP,Boolean, Column, Integer, String, ForeignKey, DateTime, text
 from database import Base
+from sqlalchemy.orm import relationship
 
 # creayting a model for the database
 
@@ -17,7 +18,7 @@ class Post(Base):
 
     def __repr__(self):
         return f"Post(title={self.title}, content={self.content}, published={self.published})"
-
+    owner = relationship("User")
 # class for users
 
 
