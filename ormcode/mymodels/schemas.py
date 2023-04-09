@@ -25,18 +25,22 @@ class CreatePost(Post):
 class PostResponse(Post):
     id: int
     created_at: datetime
+    owner_id: int
 
     class Config:  # This will allow us to create a response model
         orm_mode = True
 # ====================================================================================================
 # Schema for users
 
+
 class CreateUser(BaseModel):
     email: EmailStr
     password: str
-    
+
 # ====================================================================================================
 # class for a response for users
+
+
 class UserResponse(BaseModel):
     id: int
     email: EmailStr
@@ -45,16 +49,21 @@ class UserResponse(BaseModel):
     class Config:  # This will allow us to create a response model
         orm_mode = True
 
+
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
-# ====================================================================================================  
-#Class for Token .  
+# ====================================================================================================
+# Class for Token .
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str
-#CLASS FOR TOKEN DATA    
+# CLASS FOR TOKEN DATA
+
+
 class TokenData(BaseModel):
-    id : Optional[int] = None
+    id: Optional[int] = None
 
 # ====================================================================================================

@@ -24,7 +24,7 @@ def get_posts(db: Session = Depends(get_db), user_id: int = Depends(auth2.get_cu
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=PostResponse)
 def create_post(post: CreatePost, db: Session = Depends(get_db), current_user: int = Depends(auth2.get_current_user)):
 #   new_post = models.Post(title=post.title, content=post.content, published=post.published)
-    new_post = models.Post(**post.dict())
+    new_post = models.Post(owner_id = current_user.id, **post.dict())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
