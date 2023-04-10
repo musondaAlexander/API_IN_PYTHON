@@ -1,16 +1,8 @@
 # ====================================================================================================
 # All the imports needed for the App
-
-from database import get_db
 from database import engine
-from typing import Optional, Union, List
-from fastapi import Body, FastAPI, Response, status, HTTPException, Depends
-from pydantic import BaseModel
-from random import randrange
-from sqlalchemy.orm import Session
-from psycopg2.extras import RealDictCursor
+from fastapi import  FastAPI
 from mymodels import models, models
-from mymodels.schemas import Post, CreatePost, PostResponse, CreateUser, UserResponse
 from routers import post, user, auth
 
 # ====================================================================================================

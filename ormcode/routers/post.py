@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from mymodels import models
 from mymodels.schemas import Post, CreatePost, PostResponse
 from database import get_db
-from typing import List
+from typing import List, Optional
 import auth2
 
 
@@ -15,9 +15,11 @@ router = APIRouter(
 
 #==================================================================================================== 
 # Using a model to get post all the posts
+# We are going to add the query parameter to the path operation function
+# this will allows the user to specify the number of post they want to see in the response
 @router.get("/", status_code=200, response_model=List[PostResponse])
-def get_posts(db: Session = Depends(get_db), user_id: int = Depends(auth2.get_current_user)):
-     posts = db.query(models.Post).all()
+def get_posts(db: Session = Depends(get_db), user_id: int = Depends(auth2.get_current_user), limit: int = 10, skip: int = 0,search: Optional[str] = ""):
+     posts = db.query(models.Post).filter(models.Post.title.contains(search)).limit(limit).offset(skip).all()
      return posts
 # ===================================================================================
 # Using a model to create a post

@@ -2,7 +2,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-
+from config import settings
 # setting up the connection to the database string
 SQLALCHEMY_DATABASE_URL = "postgresql://postgres:flames####@localhost/fastApiDb"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
