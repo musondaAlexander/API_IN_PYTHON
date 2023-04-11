@@ -1,5 +1,6 @@
 from pydantic import BaseSettings
 
+# code yet to be fixed 
 class Settings(BaseSettings):
     database_name: str
     database_user: str
